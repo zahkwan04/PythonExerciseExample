@@ -45,14 +45,14 @@ def get_positive_value(prompt:str)-> float | None:
     return amount
 
 
-def check_balance(balance) -> float:
+def check_balance(balance:float) -> float:
     print("============Current Balance============")
     print(f"Your current balance is: ${balance:.2f}")  
 
     return balance
 
 
-def deposit_money(balance) -> float:
+def deposit_money(balance:float) -> float:
     print("============Deposit Money============")
     deposit_amount = get_positive_value("Enter the amount to deposit: $")
 
@@ -67,7 +67,7 @@ def deposit_money(balance) -> float:
 
 
 
-def withdraw_money(balance) -> float:
+def withdraw_money(balance:float) -> float:
     print("============Withdraw Money============")
     withdraw_amount = get_positive_value("Enter the amount to withdraw: $")
 
@@ -85,32 +85,40 @@ def withdraw_money(balance) -> float:
     return balance
 
 
-def exit_atm():
+def exit_atm(balance: float) -> float:
     print("===========Exit ATM============")
     print("Thank you for using this ATM services. Have an nice day!")
+    return balance
 
 
-def run_atm(balance):
+def run_atm(balance: float) -> None:
+    # Dictionary mapping key -> (Display Text, Function Reference)
+    menu = {
+        "1": ("Check balance", check_balance),
+        "2": ("Deposit money", deposit_money),
+        "3": ("Withdraw money", withdraw_money),
+        "4": ("Exit", exit_atm),
+    }
+
     while True:
         print("\n========Welcome to this ATM Machine Service===========")
-        print("Please choose the number from options in the menu below")
-        print("1. Check balance")
-        print("2. Deposit money")
-        print("3. Withdraw money")
-        print("4. Exit")
+        
+        # Dynamically render all menu choices
+        for option_num, (label, _) in menu.items():
+            print(f"{option_num}. {label}")
 
-        choice = input("Choose option number:").strip()
-        if choice == "1":
-            balance = check_balance(balance)
-        elif choice == "2":
-            balance = deposit_money(balance)
-        elif choice == "3":
-            balance = withdraw_money(balance)
-        elif choice == "4":
-            exit_atm()
+        choice = input("Choose option number: ").strip()
+
+        # Guard clause for invalid selection
+        if choice not in menu:
+            print(f"Invalid input. Enter an option between 1 and {len(menu)} only!")
+            continue
+
+        label, action = menu[choice]
+        balance = action(balance)
+
+        if choice == "4":
             break
-        else:
-            print("Invalid input. Enter option between 1 - 4 only!")
 
 
 if __name__ == "__main__":
