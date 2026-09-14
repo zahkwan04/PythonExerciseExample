@@ -30,8 +30,6 @@
 
 # This is a good exercise for functions + loops + if/else.
 
-import sys
-
 def get_positive_value(prompt:str)-> float | None:
     raw = input(prompt)
     try:
@@ -47,9 +45,11 @@ def get_positive_value(prompt:str)-> float | None:
     return amount
 
 
-def check_balance(balance) -> None:
+def check_balance(balance) -> float:
     print("============Current Balance============")
     print(f"Your current balance is: ${balance:.2f}")  
+
+    return balance
 
 
 def deposit_money(balance) -> float:
@@ -58,11 +58,10 @@ def deposit_money(balance) -> float:
 
     # implement guard clauses / negative case first
     if deposit_amount is None:
-        pass
-    else:
-        print(f"Depositing ${deposit_amount:.2f}")
-        balance += deposit_amount
+        return balance
 
+    print(f"Depositing ${deposit_amount:.2f}")
+    balance += deposit_amount
     print(f"Your balance is ${balance:.2f}")
     return balance
 
@@ -74,13 +73,15 @@ def withdraw_money(balance) -> float:
 
     # implement guard clauses / negative case first
     if withdraw_amount is None:
-        pass
-    elif not withdraw_amount <= balance:
+        return balance
+    
+    if withdraw_amount > balance:
         print("\nInvalid amount to withdraw!")
-    else:
-        print(f"Withdrawing ${withdraw_amount:.2f} from your account.")
-        balance -= withdraw_amount
-
+        return balance
+    
+    print(f"Withdrawing ${withdraw_amount:.2f} from your account.")
+    balance -= withdraw_amount
+    print(f"Your balance is ${balance:.2f}")
     return balance
 
 
@@ -100,7 +101,7 @@ def run_atm(balance):
 
         choice = input("Choose option number:").strip()
         if choice == "1":
-            check_balance(balance)
+            balance = check_balance(balance)
         elif choice == "2":
             balance = deposit_money(balance)
         elif choice == "3":
