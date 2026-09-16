@@ -1,0 +1,8 @@
+INFO System started
+INFO Loading configuration
+ERROR Failed to connect
+INFO Retrying connection
+ERROR Connection timeout
+WARNING Low memory
+INFO Connection successful
+ERROR Sensor failure
