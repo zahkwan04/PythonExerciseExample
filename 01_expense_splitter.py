@@ -17,21 +17,19 @@
 # Total: €140.25
 # Each person pays: €35.06
 
-def expenseSplit(total_bill, num_person, tip ) -> float:
-    
+def expense_split(total_bills, num_person, tip ) -> float:
     tip_dec = tip/100
-    tip_amount = total_bill * tip_dec
-    final_amount = total_bill + tip_amount
+    tip_amount = total_bills * tip_dec
+    final_amount = total_bills + tip_amount
     each_amount = final_amount / num_person
 
     return each_amount, final_amount, tip_amount
-    
 
 #input
-total_bill = float(input("Enter Total Bill amount:") )   
-num_person = int(input("Total person to split:")   )
-tip = float(input("Tip percentage:")   )
-result, total, tip = expenseSplit(total_bill, num_person, tip)
+total_bill = float(input("Enter Total Bill amount:"))
+num_person = int(input("Total person to split:"))
+tip = float(input("Tip percentage:"))
+result, total, tip = expense_split(total_bill, num_person, tip)
 
 print("==================================================\n")
 #display output
