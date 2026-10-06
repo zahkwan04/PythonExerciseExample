@@ -1,5 +1,5 @@
 [MASTER]
-ignore-patterns=^[0-9].*\.py$
+ignore-patterns=^(?:[0-9].*\\.py|.*(?:legacy|old).*\\.py)$
 
 [MESSAGES CONTROL]
 disable=
