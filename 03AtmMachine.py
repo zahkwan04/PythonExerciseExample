@@ -1,59 +1,54 @@
-# Make a simple ATM program.
-# Starting balance: €1000
+"""ATM Machine Simulation - Simple banking operations."""
 
-# Allow the user to:
 
-# 1. Check balance
-# 2. Deposit money
-# 3. Withdraw money
-# 4. Exit
+def get_positive_value(prompt: str) -> float | None:
+    """Get positive numeric input from user.
 
-# Rules:
+    Args:
+        prompt: Input prompt message
 
-# Cannot withdraw more than the balance.
-# Cannot deposit negative amounts.
-# After every transaction, show the balance.
-
-# Example:
-
-# ===== ATM =====
-# 1. Check balance
-# 2. Deposit
-# 3. Withdraw
-# 4. Exit
-
-# Choose: 3
-# Amount: 250
-
-# Withdrawal successful.
-# Remaining balance: €750
-
-# This is a good exercise for functions + loops + if/else.
-
-def get_positive_value(prompt:str)-> float | None:
+    Returns:
+        Positive float value or None if invalid
+    """
     raw = input(prompt)
     try:
         amount = float(raw)
     except ValueError:
         print("Invalid input - please enter number only.")
         return None
-    
+
     if amount <= 0:
         print("Amount must be greater than zero")
         return None
-    
+
     return amount
 
 
-def check_balance(balance:float) -> float:
-    print("============Current Balance============")
-    print(f"Your current balance is: ${balance:.2f}")  
+def check_balance(balance: float) -> float:
+    """Display current balance.
+
+    Args:
+        balance: Current account balance
+
+    Returns:
+        Current balance
+    """
+    print("="*40 + "Current Balance" + "="*40)
+    print(f"Your current balance is: ${balance:.2f}")
 
     return balance
 
 
-def deposit_money(balance:float) -> float:
-    print("============Deposit Money============")
+def deposit_money(balance: float) -> float:
+    """Deposit money into account.
+
+    Args:
+        balance: Current account balance
+
+    Returns:
+        Updated account balance
+    """
+    print("="*40 + "Deposit Money" + "="*40)
     deposit_amount = get_positive_value("Enter the amount to deposit: $")
 
     # implement guard clauses / negative case first
@@ -66,19 +61,26 @@ def deposit_money(balance:float) -> float:
     return balance
 
 
+def withdraw_money(balance: float) -> float:
+    """Withdraw money from account.
 
-def withdraw_money(balance:float) -> float:
-    print("============Withdraw Money============")
+    Args:
+        balance: Current account balance
+
+    Returns:
+        Updated account balance
+    """
+    print("="*40 + "Withdraw Money" + "="*40)
     withdraw_amount = get_positive_value("Enter the amount to withdraw: $")
 
     # implement guard clauses / negative case first
     if withdraw_amount is None:
         return balance
-    
+
     if withdraw_amount > balance:
         print("\nInvalid amount to withdraw!")
         return balance
-    
+
     print(f"Withdrawing ${withdraw_amount:.2f} from your account.")
     balance -= withdraw_amount
     print(f"Your balance is ${balance:.2f}")
@@ -86,12 +88,25 @@ def withdraw_money(balance:float) -> float:
 
 
 def exit_atm(balance: float) -> float:
-    print("===========Exit ATM============")
-    print("Thank you for using this ATM services. Have an nice day!")
+    """Exit ATM application.
+
+    Args:
+        balance: Current account balance
+
+    Returns:
+        Current account balance
+    """
+    print("="*40 + "Exit ATM" + "="*40)
+    print("Thank you for using this ATM services. Have a nice day!")
     return balance
 
 
 def run_atm(balance: float) -> None:
+    """Run ATM application main loop.
+
+    Args:
+        balance: Starting account balance
+    """
     # Dictionary mapping key -> (Display Text, Function Reference)
     menu = {
         "1": ("Check balance", check_balance),
@@ -101,8 +116,8 @@ def run_atm(balance: float) -> None:
     }
 
     while True:
-        print("\n========Welcome to this ATM Machine Service===========")
-        
+        print("\n" + "="*55 + "Welcome to this ATM Machine Service")
+
         # Dynamically render all menu choices
         for option_num, (label, _) in menu.items():
             print(f"{option_num}. {label}")

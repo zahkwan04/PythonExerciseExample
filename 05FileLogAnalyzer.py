@@ -1,29 +1,16 @@
-# Imagine your software generates this log:
+"""File Log Analyzer - Analyze log file and extract error statistics."""
 
-# INFO System started
-# INFO Loading configuration
-# ERROR Failed to connect
-# INFO Retrying connection
-# ERROR Connection timeout
-# WARNING Low memory
-# INFO Connection successful
-# ERROR Sensor failure
-
-# Write Python code that reads the log and calculates:
-
-# INFO: 4
-# WARNING: 1
-# ERROR: 3
-
-# Bonus:
-
-# Most common error: Connection timeout
-
-# This is actually quite close to something you'd encounter in real engineering/software work.
 
 def read_file(filename: str) -> list:
+    """Read and display log file contents.
 
-    with open(filename, "r") as f:
+    Args:
+        filename: Path to log file
+
+    Returns:
+        List of log lines
+    """
+    with open(filename, "r", encoding="utf-8") as f:
         content = f.readlines()
         for line in content:
             print(line.strip())
@@ -31,6 +18,14 @@ def read_file(filename: str) -> list:
 
 
 def analyze_log(content: list) -> dict:
+    """Analyze log file and count log levels.
+
+    Args:
+        content: List of log lines
+
+    Returns:
+        Dictionary with counts of each log level
+    """
     counts = {}
     for line in content:
         error_level = line.split()[0]
@@ -42,6 +37,14 @@ def analyze_log(content: list) -> dict:
 
 
 def most_common_error(error_lvl: list) -> str | None:
+    """Find most common error message.
+
+    Args:
+        error_lvl: List of log lines
+
+    Returns:
+        Most common error message or None if no errors
+    """
     errors = {}
     for line in error_lvl:
         parts = line.split(maxsplit=1)
@@ -52,21 +55,29 @@ def most_common_error(error_lvl: list) -> str | None:
 
     if not errors:
         return None
-    return max(errors, key=errors.get)      
-   
+    return max(errors, key=errors.get)
+
 
 def most_common_dbg_lvl(dbg_lvl: dict) -> str | None:
+    """Find most common debug level.
+
+    Args:
+        dbg_lvl: Dictionary with debug level counts
+
+    Returns:
+        Most common debug level or None if empty
+    """
     if not dbg_lvl:
         return None
-    
-    return max(dbg_lvl, key = dbg_lvl.get)
+
+    return max(dbg_lvl, key=dbg_lvl.get)
 
 
 if __name__ == "__main__":
     lines = read_file("swlog.log")
 
     counts = analyze_log(lines)
-    print("\n=========Log Summary=========")
+    print("\n" + "="*25 + "Log Summary")
     for level, n in counts.items():
         print(f"\n{level}: {n}")
 
