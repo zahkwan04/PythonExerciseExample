@@ -1,0 +1,7 @@
+[MASTER]
+ignore-patterns=^[0-9].*\.py$
+
+[MESSAGES CONTROL]
+disable=
+    invalid-name,
+    duplicate-code,
