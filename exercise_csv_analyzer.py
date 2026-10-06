@@ -72,8 +72,8 @@ def generate_summary(filename: str, stats: dict, failed_list: list) -> None:
         f.write(f"Failed: {stats['failed']}\n")
         f.write(f"Pass rate: {stats['pass_rate']:.1f}%\n")
         f.write("\nFailed tests:\n")
-        for test_id in failed_list:
-            f.write(f"  {test_id}\n")
+        for test_id_val in failed_list:
+            f.write(f"  {test_id_val}\n")
 
 
 if __name__ == "__main__":

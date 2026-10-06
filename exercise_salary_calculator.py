@@ -32,24 +32,24 @@ def ask_input() -> tuple[float, float, float]:
     return gross_salary_input, tax_percent_input, social_contribution_input
 
 
-def display_output(gross, tax_amt, social_amt, net):
+def display_output(gross_amt, tax_amt, social_amt, net_amt):
     """Display salary breakdown.
 
     Args:
-        gross: Gross salary
+        gross_amt: Gross salary
         tax_amt: Tax amount
         social_amt: Social contribution amount
-        net: Net salary
+        net_amt: Net salary
     """
     print("=" * 54 + "CALCULATED NET SALARY" + "=" * 54)
-    print(f"Gross salary: ${gross:.2f}")
+    print(f"Gross salary: ${gross_amt:.2f}")
     print(f"Tax: ${tax_amt:.2f}")
     print(f"Social Contribution: ${social_amt:.2f}")
-    print(f"Net Salary: ${net:.2f}")
+    print(f"Net Salary: ${net_amt:.2f}")
 
 
 if __name__ == "__main__":
     # Main
-    gross, tax, social = ask_input()
-    tax_deduct, social_deduct, net_salary = calculate_net(gross, tax, social)
-    display_output(gross, tax_deduct, social_deduct, net_salary)
+    gross_sal, tax_pct_val, social_pct_val = ask_input()
+    tax_deduct, social_deduct, net_salary = calculate_net(gross_sal, tax_pct_val, social_pct_val)
+    display_output(gross_sal, tax_deduct, social_deduct, net_salary)

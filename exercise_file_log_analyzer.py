@@ -78,8 +78,8 @@ if __name__ == "__main__":
 
     counts = analyze_log(lines)
     print("\n" + "="*25 + "Log Summary")
-    for level, count in counts.items():
-        print(f"\n{level}: {count}")
+    for level, count_val in counts.items():
+        print(f"\n{level}: {count_val}")
 
     print(f"\nMost common error: {most_common_error(lines)}")
 
